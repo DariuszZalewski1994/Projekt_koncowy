@@ -29,7 +29,7 @@ class Login(View):
 
         if user is not None:
             login(request, user)
-            return redirect('add_airport')
+            return redirect('add_flight_plan')
         else:
             message = "Login or password incorrect"
             return render(request, 'login.html', {'message' : message})
@@ -40,6 +40,7 @@ class Logout(View):
         logout(request)
         return redirect('login')
 
+
 #Main function of the program. Allows the User to submit a flight plan after the User filled the form.
 @method_decorator(login_required, name='get')
 class AddFlightPlan(View):
@@ -49,14 +50,17 @@ class AddFlightPlan(View):
         return render(request, 'add_flight_plan.html', {'aircraft_types': aircraft_types, 'airports':airports})
 
     def post(self, request):
+
         aircraft_id = request.POST.get('aircraft')
         aircraft_instance = get_object_or_404(Aircraft, pk=aircraft_id)
+
         departure_airport_id = request.POST.get('departure_airport')
         arrival_airport_id = request.POST.get('arrival_airport')
         departure_time = request.POST.get('departure_time')
         arrival_time = request.POST.get('arrival_time')
         flight_number = request.POST.get('flight_number')
         flight_type_id = request.POST.get('flight_type')
+
         flight_type_instance = get_object_or_404(FlightType, pk=flight_type_id)
 
         departure_airport_instance = get_object_or_404(Airport, pk=departure_airport_id)
@@ -72,7 +76,7 @@ class AddFlightPlan(View):
             departure_time=departure_time, #czy nie trzeba tego dodac do modelu flightnumber?
             arrival_airport=arrival_airport_instance,
             arrival_time=arrival_time,  #czy nie trzeba tego dodac do modelu flightnumber?
-            user=user #czy ma to sens?
+            user=user
             )
 
         flightplan.save()

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/add_airport/">Add Airport</a></li>
+            <li><a href="/airport_list/">Airport List</a></li>
+            <li><a href="/add_aircraft/">Add Aircraft</a></li>
+            <li><a href="/aircraft_list/">Aircraft List</a></li>
+            <li><a href="/add_flight_plan/">Add Flight Plan</a></li>
+            <li><a href="/flights_list/">Flights List</a></li>
+                {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+                {% endif %}
+        </ul>
+    </nav>
+    <h1>ADD AIRPORT</h1>
+    {% if successfully_added %}
+    <p> {{ successfully_added }}</p>
+    {% endif %}
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="icao_code">ICAO code:</label>
+        <input type="text" id="icao_code" name="icao_code" onkeyup="this.value = this.value.toUpperCase()"><br>
+
+        <label for="runway_length">Runway length[m]:</label>
+        <input type="number" id="runway_length" name="runway_length"><br>
+
+        <label for="fuel_availability">Fuel Availability:</label>
+        <input type="checkbox" id="fuel_availability" name="fuel_availability"><br>
+
+
+        <label for="latitude">Latitude[deg]:</label>
+        <input type="text" id="latitude" name="latitude"><br>
+
+        <label for="longitude">Longitude[deg]:</label>
+        <input type="text" id="longitude" name="longitude"><br>
+
+        <button type="submit">Add airport</button>
+    </form>
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">Logout</a>
+    {% endif %}
+</body>
+</html>

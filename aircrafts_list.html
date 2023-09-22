@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Airports</title>
+        <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/add_airport/">Add Airport</a></li>
+            <li><a href="/airport_list/">Airport List</a></li>
+            <li><a href="/add_aircraft/">Add Aircraft</a></li>
+            <li><a href="/aircraft_list/">Aircraft List</a></li>
+            <li><a href="/add_flight_plan/">Add Flight Plan</a></li>
+            <li><a href="/flights_list/">Flights List</a></li>
+                {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+                {% endif %}
+        </ul>
+    </nav>
+    <h2>List of Aircrafts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Flight range[km]</th>
+                <th>Takeoff runway length required[m]</th>
+                <th>Landing runway length required[m]</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aircraft in aircrafts %}
+            <tr>
+                <td>{{ aircraft.name }}</td>
+                <td>{{ aircraft.flight_range }}</td>
+                <td>{{ aircraft.takeoff_runway_length_required }}</td>
+                <td>{{ aircraft.landing_runway_length_required }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

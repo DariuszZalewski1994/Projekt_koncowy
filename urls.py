@@ -24,11 +24,11 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
     # path('', homepage),
-    path('add_flight_plan/', AddFlightPlan.as_view()),
+    path('add_flight_plan/', AddFlightPlan.as_view(), name='add_flight_plan'),
     path('add_airport/', AddAirport.as_view(), name='add_airport'),
-    path('airport_list/', AirportList.as_view()),
+    path('airport_list/', AirportList.as_view(), name='airport_list'),
     path('add_aircraft/', AddAircraft.as_view(), name='add_aircraft'),
-    path('aircraft_list/', AircraftList.as_view()),
-    path('flights_list/', FlightList.as_view())
+    path('aircraft_list/', AircraftList.as_view(), name='aircraft_list'),
+    path('flights_list/', FlightList.as_view(), name='flights_list')
 ]
 

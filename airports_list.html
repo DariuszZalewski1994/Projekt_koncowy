@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Airports</title>
+        <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/add_airport/">Add Airport</a></li>
+            <li><a href="/airport_list/">Airport List</a></li>
+            <li><a href="/add_aircraft/">Add Aircraft</a></li>
+            <li><a href="/aircraft_list/">Aircraft List</a></li>
+            <li><a href="/add_flight_plan/">Add Flight Plan</a></li>
+            <li><a href="/flights_list/">Flights List</a></li>
+                {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+                {% endif %}
+        </ul>
+    </nav>
+    <h2>List of Airports</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ICAO Code</th>
+                <th>Runway Length[m]</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Fuel Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for airport in airports %}
+            <tr>
+                <td>{{ airport.name }}</td>
+                <td>{{ airport.icao_code }}</td>
+                <td>{{ airport.runway_length }}</td>
+                <td>{{ airport.latitude }}</td>
+                <td>{{ airport.longitude }}</td>
+                <td>{{ airport.fuel_availability }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
